@@ -2,9 +2,9 @@ clear; clc;
 
 d = 2; 
 
-fun = @(x) 0.5*d-0.5*sum(cos(5*pi*x),2)+sum(x.^2,2);
+fun = @(x) log(0.1+0.5*d-0.5*sum(cos(5*pi*x),2)+sum(x.^2,2))-log(0.1);
 
-K  = 500; lambda = 1/sqrt(d); 
+K  = 400; lambda = 1/sqrt(d); 
 
 % three fixed initial iterates, as shown in Fig. !
 x1three =[0 1.414; -1 -1; 1 -1];
@@ -13,12 +13,12 @@ x1three =[0 1.414; -1 -1; 1 -1];
 % x1three = 2*rand(3,d)-1;
 % x1three = sqrt(d)*x1three./sqrt(sum(x1three.^2,2));
 
-rho1 = 0.96; rho2 = 0.94; rho3 = 0.90;
+rho1 = 0.97; rho2 = 0.95; rho3 = 0.93;
 n = 5;
 
-XTrace1 = rad(fun,x1three(1,:),K,lambda,rho1,n);
-XTrace2 = rad(fun,x1three(2,:),K,lambda,rho2,n);
-XTrace3 = rad(fun,x1three(3,:),K,lambda,rho3,n);
+XTrace1 = app(fun,x1three(1,:),K,lambda,rho1,n);
+XTrace2 = app(fun,x1three(2,:),K,lambda,rho2,n);
+XTrace3 = app(fun,x1three(3,:),K,lambda,rho3,n);
 XTrace01=[x1three(1,:);XTrace1];
 XTrace02=[x1three(2,:);XTrace2];
 XTrace03=[x1three(3,:);XTrace3];
@@ -35,7 +35,7 @@ set(findobj(get(gca,'Children'),'LineWidth',0.5),'LineWidth',2);
 x = linspace(-1.5,1.5);
 y = linspace(-1.5,1.5);
 [X,Y] = meshgrid(x,y);
-Z=0.5*d-0.5*(cos(5*pi*X)+cos(5*pi*Y))+X.^2+Y.^2;
+Z=log(0.1+0.5*d-0.5*(cos(5*pi*X)+cos(5*pi*Y))+X.^2+Y.^2)-log(0.1);
 mesh(X,Y,Z);
 
 xticks([-1.5 0 1.5])
@@ -78,7 +78,8 @@ hold on
 plot(log10(sum(XTrace2.^2,2)),'b--')
 plot(log10(sum(XTrace3.^2,2)),'m-.')
 hold off
-ylim([-25 0])
+ylim([-12 0])
+yticks([-12 -8 -4 0])
 
 title(sprintf('d=%d',d))
 L1 = sprintf('\x03C1=%03.2f, n=%d',rho1,n);
@@ -88,4 +89,4 @@ lgnd=legend(L1,L2,L3);
 po=get(lgnd,'Position');
 set(lgnd,'Position',[po(1)+0.02, po(2)+0.02, po(3), po(4)]); %8X6cm
 xlabel('iteration (k)')
-ylabel('$$\|x_k-x_*\|_2^2$$','Interpreter','latex');
+ylabel('$$\log_{10}\|x_k-x_*\|_2^2$$','Interpreter','latex');
