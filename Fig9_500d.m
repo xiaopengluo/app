@@ -19,18 +19,18 @@ c = 1;
 
 fun = @(x) c*d-c*sum(cos(3*pi*x),2)+diag(x*A*x');
 
-K  = 25000; lambda = 1/sqrt(d); 
+K  = 13000; lambda = 1/sqrt(d); 
 
 rng('shuffle');
 x1three = 2*rand(2,d)-1;
 x1three = sqrt(d)*x1three./sqrt(sum(x1three.^2,2));
 
-rho1 = 0.9986; 
-n = 50;
+rho1 = 0.99858; 
+n = 46;
 
 XTrace = app(fun,x1three(1,:),K,lambda,rho1,n);
 
-Kde = 100000; para = [25 1 0.007];
+Kde = 80000; para = [25 1 0.007];
 
 XTrace0 = de(fun,d,Kde,para);
 
