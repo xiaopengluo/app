@@ -1,6 +1,6 @@
 function [XTrace,YTrace,fc] = app(fun,x1,K,lambda,rho,n)
 %APP for global optimization
-%By Xiaopeng Luo
+% By Xiaopeng Luo
 
 d  = length(x1);
 xk = x1;
