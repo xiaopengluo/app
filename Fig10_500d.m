@@ -25,8 +25,8 @@ rng('shuffle');
 x1three = 2*rand(2,d)-1;
 x1three = sqrt(d)*x1three./sqrt(sum(x1three.^2,2));
 
-rho1 = 0.9992; 
-n = 50;
+rho1 = 0.99919; 
+n = 46;
 
 XTrace = app(fun,x1three(1,:),K,lambda,rho1,n);
 
