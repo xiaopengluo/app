@@ -18,14 +18,14 @@ A = A ./ vecnorm(A);
 c = 1;
 fun = @(x) c*d-c*sum(cos(3*pi*x),2)+diag(x*A*x');
 
-K  = 4000; lambda = 1/sqrt(d); 
+K  = 3000; lambda = 1/sqrt(d); 
 
 rng('shuffle');
 x1three = 2*rand(2,d)-1;
 x1three = sqrt(d)*x1three./sqrt(sum(x1three.^2,2));
 
-rho1 = 0.9915; 
-n = 20;
+rho1 = 0.9925; 
+n = 25;
 
 XTrace = app(fun,x1three(1,:),K,lambda,rho1,n);
 
@@ -83,7 +83,7 @@ set(get(gca,'YLabel'),'FontSize',figure_FontSize,'Vertical','middle');
 set(findobj('FontSize',10),'FontSize',figure_FontSize);
 set(findobj(get(gca,'Children'),'LineWidth',0.5),'LineWidth',2);
 
-plot(20*(1:Kde),log10(sum(XTrace1.^2,2)),'k:')
+plot(n*(1:Kde),log10(sum(XTrace1.^2,2)),'k:')
 xlim([0 15e4])
 ylim([-12 8])
 yticks([-12 -8 -4 0 4 8])

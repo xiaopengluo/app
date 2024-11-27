@@ -25,14 +25,19 @@ rng('shuffle');
 x1three = 2*rand(2,d)-1;
 x1three = sqrt(d)*x1three./sqrt(sum(x1three.^2,2));
 
-rho1 = 0.99919; 
-n = 46;
+rho1 = 0.9992; 
+n = 50;
 
 XTrace = app(fun,x1three(1,:),K,lambda,rho1,n);
 
 Kde = 100000; para = [25 1 0.007];
 
 XTrace0 = de(fun,d,Kde,para);
+
+plot(n*(1:K),log10(sum(XTrace.^2,2)),'b--')
+xlim([0 20e5])
+ylim([-12 8])
+yticks([-12 -8 -4 0 4 8])
 
 % various scale factors (F)
 F = [.9 .95 1 1.05];

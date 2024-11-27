@@ -11,7 +11,7 @@ A = A ./ vecnorm(A);
 c = 1;
 fun = @(x) c*d-c*sum(cos(3*pi*x),2)+diag(x*A*x');
 
-K  = 400; lambda = 1/sqrt(d); 
+K  = 400; lambda = 1/sqrt(d)/2; 
 
 % three fixed initial iterates, as shown in Fig. !
 x1three =[0 1.414; 1 -1; 1 1];

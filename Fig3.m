@@ -11,7 +11,7 @@ A = A ./ vecnorm(A);
 c = 1;
 fun = @(x) c*d-c*sum(cos(3*pi*x),2)+diag(x*A*x');
 
-K  = 400; lambda = 1/sqrt(d); 
+K  = 400; lambda = 1/sqrt(d)/2; 
 
 % three fixed initial iterates, as shown in Fig. !
 x1three =[0 1.414; 1 -1; 1 1];
@@ -21,7 +21,7 @@ x1three =[0 1.414; 1 -1; 1 1];
 % x1three = sqrt(d)*x1three./sqrt(sum(x1three.^2,2));
 
 rho1 = 0.93; rho2 = 0.95; rho3 = 0.97;
-n = 5;
+n = 10;
 
 XTrace1 = app(fun,x1three(1,:),K,lambda,rho1,n);
 XTrace2 = app(fun,x1three(2,:),K,lambda,rho2,n);

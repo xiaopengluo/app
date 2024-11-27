@@ -1,9 +1,9 @@
 clear; clc;
 
-d = 500; 
+d = 200; 
 
-a = 2; % mean
-b = 4; % std
+a = 1; % std
+b = 4; % mean
 
 rng(100);
 pd = makedist('Normal');
@@ -19,34 +19,34 @@ c = 1;
 
 fun = @(x) c*d-c*sum(cos(3*pi*x),2)+diag(x*A*x');
 
-K  = 25000; lambda = 1/sqrt(d); 
+K  = 10000; lambda = 1/sqrt(d); 
 
 rng('shuffle');
 x1three = 2*rand(2,d)-1;
 x1three = sqrt(d)*x1three./sqrt(sum(x1three.^2,2));
 
-rho1 = 0.9986; 
-n = 50;
+rho1 = 0.9982; 
+n = 30;
 
 XTrace = app(fun,x1three(1,:),K,lambda,rho1,n);
 
-Kde = 100000; para = [25 1 0.007];
+Kde = 25000; para = [20 0.95 0.015];
 
 XTrace0 = de(fun,d,Kde,para);
 
 % various scale factors (F)
-F = [.9 .95 1 1.05];
-XTrace1 = de(fun,d,Kde,[25 F(1) para(3)]);
-XTrace2 = de(fun,d,Kde,[25 F(2) para(3)]);
-XTrace3 = de(fun,d,Kde,[25 F(3) para(3)]);
-XTrace4 = de(fun,d,Kde,[25 F(4) para(3)]);
+F = [.90 .95 1 1.05];
+XTrace1 = de(fun,d,Kde,[20 F(1) para(3)]);
+XTrace2 = de(fun,d,Kde,[20 F(2) para(3)]);
+XTrace3 = de(fun,d,Kde,[20 F(3) para(3)]);
+XTrace4 = de(fun,d,Kde,[20 F(4) para(3)]);
 
 % various crossover parameters (Cr)
-Cr = [.003 .005 .007 .009];
-XTrace5 = de(fun,d,Kde,[25 para(2) Cr(1)]);
-XTrace6 = de(fun,d,Kde,[25 para(2) Cr(2)]);
-XTrace7 = de(fun,d,Kde,[25 para(2) Cr(3)]);
-XTrace8 = de(fun,d,Kde,[25 para(2) Cr(4)]);
+Cr = [.010 .015 .020 .025];
+XTrace5 = de(fun,d,Kde,[20 para(2) Cr(1)]);
+XTrace6 = de(fun,d,Kde,[20 para(2) Cr(2)]);
+XTrace7 = de(fun,d,Kde,[20 para(2) Cr(3)]);
+XTrace8 = de(fun,d,Kde,[20 para(2) Cr(4)]);
 
 figure(1)
 figure_FontSize=10;
@@ -58,7 +58,6 @@ set(findobj('FontSize',10),'FontSize',figure_FontSize);
 set(findobj(get(gca,'Children'),'LineWidth',0.5),'LineWidth',2);
 
 plot(para(1)*(1:Kde),log10(sum(XTrace0.^2,2)),'k-')
-xlim([0 20e5])
 ylim([-12 8])
 yticks([-12 -8 -4 0 4 8])
 hold on
@@ -84,7 +83,7 @@ set(findobj('FontSize',10),'FontSize',figure_FontSize);
 set(findobj(get(gca,'Children'),'LineWidth',0.5),'LineWidth',2);
 
 plot(para(1)*(1:Kde),log10(sum(XTrace1.^2,2)),'k:')
-xlim([0 20e5])
+% xlim([0 15e4])
 ylim([-12 8])
 yticks([-12 -8 -4 0 4 8])
 hold on
@@ -114,7 +113,7 @@ set(findobj('FontSize',10),'FontSize',figure_FontSize);
 set(findobj(get(gca,'Children'),'LineWidth',0.5),'LineWidth',2);
 
 plot(para(1)*(1:Kde),log10(sum(XTrace5.^2,2)),'k:')
-xlim([0 20e5])
+% xlim([0 15e4])
 ylim([-12 8])
 yticks([-12 -8 -4 0 4 8])
 hold on

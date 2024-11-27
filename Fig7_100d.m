@@ -26,7 +26,7 @@ x1three = 2*rand(3,d)-1;
 x1three = sqrt(d)*x1three./sqrt(sum(x1three.^2,2));
 
 rho1 = 0.9965; rho2 = 0.9972; rho3 = 0.9980; 
-n = 20;
+n = 25;
 
 XTrace1 = app(fun,x1three(1,:),K,lambda,rho1,n);
 XTrace2 = app(fun,x1three(2,:),K,lambda,rho2,n);

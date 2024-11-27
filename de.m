@@ -1,15 +1,13 @@
 function [XTrace,YTrace,best] = de(fun,d,itermax,para)
 % Differential Evolution 
 % from book 'Nature-Inspired Optimization Algorithms' by Xinshe Yang
+% 2022-06-020
 
 XTrace = zeros(itermax,d); 
 YTrace = zeros(itermax,1);
 
-% 种群规模参数
 n = para(1);    % Population >=4, typically 10 to 25
-% 更新步长参数
 F = para(2);    % DE parameter - scaling (0.5 to 0.9)
-% 交叉率CR反映算法的变异强度，通常来说为了增强算法的随机性，可以采用随机数代替常数。
 Cr = para(3);   % DE parameter - crossover probability
 
 % Simple bounds [-1,1]^d
@@ -26,7 +24,7 @@ for i=1:n
 end
 % Find the current best
 [fmin,I] = min(Fitness);
-best = Sol(I,:); rec = [];
+best = Sol(I,:); 
 
 % Start the iterations by differential evolution
 for iter=1:itermax
